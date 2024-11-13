@@ -20,6 +20,7 @@ bool g_canActive    = false; // flag indicating whether the CAN bus is active an
 long g_canID        = 0x10; //  identifier for CAN packets sent from this device, ensuring that messages can be correctly routed and recognized in the network.
 
 void setup() {
+  Serial.println("start of setup");
   Serial.begin(9600);
   Wire.begin();
 
@@ -105,6 +106,10 @@ void sendDistanceOverCAN(uint16_t distance) {
   }
   else if (!CAN.endPacket()) {      
     Serial.println("CAN end failed");
+    Serial.print("CAN dlc: ");
+    Serial.println(dlc);
     g_canActive = false;
+  } else {
+    Serial.println("CAN packet sent successfully");
   }
 }
