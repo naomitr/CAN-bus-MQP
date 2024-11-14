@@ -116,6 +116,9 @@ void displayDistance(uint16_t distance, int pktId) {
   
   if (distance < DISTANCE_MIN_RAW || distance > DISTANCE_MAX_RAW) {
     g_lcd.print("Out of Range");
+    g_lcd.setCursor(0, 1);
+    g_lcd.print("Pkt id: ");
+    g_lcd.print(pktId);
   } else {
     g_lcd.print("Dist: ");
     g_lcd.print(distance);
