@@ -91,8 +91,10 @@ void readCANBus() {
         displayDistance(distance, pktId);
       }
     }
-  } else if (pktId != g_tofSensorId) {
+  } else if (pktId != g_tofSensorId || pktId != g_tofSensorId2) {
       Serial.println("Error: CAN packet ID is unknown");
+      Serial.print("Unknown Packet ID: ");
+      Serial.println(pktId);
       g_lcd.print("Unknown Pkt id");
       g_lcd.setCursor(0, 1);
       g_lcd.print(pktId);
