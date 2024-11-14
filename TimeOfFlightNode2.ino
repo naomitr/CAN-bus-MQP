@@ -25,7 +25,9 @@ void setup() {
   Wire.begin();
 
   // Initialize CAN bus
+  Serial.println("pre initCAN");
   initCAN();
+  Serial.println("post initCAN");
 
   setupToF();
 }
