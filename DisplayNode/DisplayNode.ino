@@ -20,6 +20,7 @@ const uint16_t DISTANCE_MIN_RAW = 20;
 LiquidCrystal_I2C g_lcd(LCD_I2C_ADDRESS, LCD_COLUMNS, LCD_ROWS);
 bool g_canActive = false;
 long g_tofSensorId = 0x10;
+long g_tofSensorId2 = 0x20;
 
 void setup() {
   Serial.begin(9600);
@@ -80,7 +81,7 @@ void readCANBus() {
   pktSize = CAN.parsePacket();
   pktId = CAN.packetId();
 
-  if (pktId == g_tofSensorId && !CAN.packetRtr() && pktSize > 0){      
+  if ((pktId == g_tofSensorId || pktId == g_tofSensorId2) && !CAN.packetRtr() && pktSize > 0){      
     // Read packet data if available
     for (int byteIndex = 0; CAN.available() && byteIndex < pktSize; ++byteIndex) {
       bytearray[byteIndex % 2] = CAN.read(); // Modulo operation ensures we don't exceed the bytearray bounds
