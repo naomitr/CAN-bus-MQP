@@ -144,8 +144,11 @@ void printPacket(int pktId) {
       Serial.print(" "); // Separate bytes for readability
     }
     Serial.println(); // End of the packet data
-  } else {
+  } else if (dataByte <= 0) {
     Serial.println("No data available in packet.");
+  } else
+  {
+    Serial.println("Caught in final else!");
   }
 }
 
