@@ -88,10 +88,22 @@ void readCANBus() {
       
       if (byteIndex % 2 == 1){ // We have a pair of bytes to process
         distance = (bytearray[1] << 8) | bytearray[0]; // Combine two bytes into one integer
+        //Serial.print what was read
+        Serial.print("Packet ID: ");
+        Serial.println(pktId);
+        Serial.print("Distance: ");
+        Serial.println(distance);
+        Serial.print("bytearry: ");
+        Serial.print(bytearray[0]);
+        Serial.println(bytearray[1]);
         displayDistance(distance, pktId);
-        printPacket(pktId);
+        //printPacket(pktId);
       }
     }
+    
+
+
+
   } else if (pktId != g_tofSensorId || pktId != g_tofSensorId2) {
       Serial.println("Error: CAN packet ID is unknown");
       Serial.print("Unknown Packet ID: ");
@@ -144,8 +156,8 @@ void printPacket(int pktId) {
       Serial.print(" "); // Separate bytes for readability
     }
     Serial.println(); // End of the packet data
-  } else if (dataByte <= 0) {
-    Serial.println("No data available in packet.");
+  } else if (!CAN.available()) {
+    Serial.println("CAN not available");
   } else
   {
     Serial.println("Caught in final else!");
