@@ -130,6 +130,22 @@ void displayDistance(uint16_t distance, int pktId) {
   }
 }
 
-void printPacket(int pktId){
-  Serial.println(pktId.parsePacket);
+void printPacket(int pktId) {
+  Serial.print("Packet ID: 0x");
+  Serial.println(pktId, HEX);
+
+  if (CAN.available()) {
+    Serial.print("Packet Content (Binary): ");
+    while (CAN.available()) {
+      byte dataByte = CAN.read();
+      for (int i = 7; i >= 0; --i) { // Read bits from most significant to least significant
+        Serial.print(bitRead(dataByte, i));
+      }
+      Serial.print(" "); // Separate bytes for readability
+    }
+    Serial.println(); // End of the packet data
+  } else {
+    Serial.println("No data available in packet.");
+  }
 }
+
