@@ -89,6 +89,7 @@ void readCANBus() {
       if (byteIndex % 2 == 1){ // We have a pair of bytes to process
         distance = (bytearray[1] << 8) | bytearray[0]; // Combine two bytes into one integer
         displayDistance(distance, pktId);
+        printPacket(pktId);
       }
     }
   } else if (pktId != g_tofSensorId || pktId != g_tofSensorId2) {
@@ -127,4 +128,8 @@ void displayDistance(uint16_t distance, int pktId) {
     g_lcd.print("Pkt id: ");
     g_lcd.print(pktId);
   }
+}
+
+void printPacket(int pktId){
+  Serial.println(pktId.parsePacket);
 }
