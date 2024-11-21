@@ -100,10 +100,6 @@ void readCANBus() {
         //printPacket(pktId);
       }
     }
-    
-
-
-
   } else if (pktId != g_tofSensorId || pktId != g_tofSensorId2) {
       Serial.println("Error: CAN packet ID is unknown");
       Serial.print("Unknown Packet ID: ");
