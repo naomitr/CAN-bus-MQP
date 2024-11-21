@@ -85,17 +85,12 @@ void readCANBus() {
     // Read packet data if available
     for (int byteIndex = 0; CAN.available() && byteIndex < pktSize; ++byteIndex) {
       bytearray[byteIndex % 2] = CAN.read(); // Modulo operation ensures we don't exceed the bytearray bounds
+
+      //Serial.print what was read
+      printByteInBinary(bytearray);
       
       if (byteIndex % 2 == 1){ // We have a pair of bytes to process
         distance = (bytearray[1] << 8) | bytearray[0]; // Combine two bytes into one integer
-        //Serial.print what was read
-        Serial.print("Packet ID: ");
-        Serial.println(pktId);
-        Serial.print("Distance: ");
-        Serial.println(distance);
-        Serial.print("bytearry: ");
-        Serial.print(bytearray[0]);
-        Serial.println(bytearray[1]);
         displayDistance(distance, pktId);
         //printPacket(pktId);
       }
@@ -138,6 +133,7 @@ void displayDistance(uint16_t distance, int pktId) {
   }
 }
 
+// naomi + sarah's code for printing packet data
 void printPacket(int pktId) {
   Serial.print("Packet ID: 0x");
   Serial.println(pktId, HEX);
@@ -157,6 +153,13 @@ void printPacket(int pktId) {
   } else
   {
     Serial.println("Caught in final else!");
+  }
+}
+
+// sri + haowen's code for printing to binary
+void printByteInBinary(byte dataByte) {
+  for (int i = 7; i >= 0; --i) { // Read bits from MSB to LSB
+    Serial.print(bitRead(dataByte, i));
   }
 }
 

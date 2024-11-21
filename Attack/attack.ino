@@ -4,6 +4,7 @@
 const int LOOP_DELAY_MS = 1000;
 const long CAN_SPEED = 500E3;
 const long g_canID   = 0x10;
+const long EXPLOIT_DISTANCE = 1000;
 
 // Globals
 bool g_canActive = false;
@@ -25,7 +26,7 @@ void loop() {
   }
 
   // 假设手动输入的距离值
-  uint16_t distance = 1000; // 测试值
+  uint16_t distance = EXPLOIT_DISTANCE; // 测试值
   sendDistanceOverCAN(distance);
 
   delay(LOOP_DELAY_MS);

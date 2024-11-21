@@ -83,7 +83,7 @@ void readCANBus() {
       byte dataByte = CAN.read();
       printByteInBinary(dataByte); // Print byte in binary format
       Serial.print(" ");
-    }
+    }     
     Serial.println();
 
     // Process and display distance
