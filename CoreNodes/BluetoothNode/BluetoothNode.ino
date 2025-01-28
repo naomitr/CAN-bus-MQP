@@ -23,23 +23,29 @@ void loop()
     if (a=='1')
     {
       digitalWrite(13, HIGH);
-      BT.println("Received: ", a);
+      BT.print("Received: ");
+      BT.println(a);
       BT.println("LED on");
     }
-    if (a=='2')
+    else if (a=='2')
     {
       digitalWrite(13, LOW);
+      BT.print("Received: ");
+      BT.println(a);
       BT.println("LED off");
     }
-    if (a=='?')
+    else if (a=='?')
     {
       BT.println("Send '1' to turn LED on");
-      BT.println("Send '2' to turn LED on");
+      BT.println("Send '2' to turn LED off");
     }   
-    else
+    else if (a != '1' || a != '2' || a != '?')
     {
-      BT.println('unknown input');
+      BT.print("Received: ");
+      BT.println(a);
+      BT.println("Unknown input");
     }
+
     // you can add more "if" statements with other characters to add more commands
   }
 }
