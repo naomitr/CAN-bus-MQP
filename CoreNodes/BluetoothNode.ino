@@ -36,6 +36,9 @@ void loop()
     {
       BT.println("Send '1' to turn LED on");
       BT.println("Send '2' to turn LED off");
+    }
+    if (a == '\r' || a == '\n'){
+      return;
     }   
     else if (a != '1' && a != '2' && a != '?')
     {
