@@ -24,20 +24,24 @@ void loop()
     {
       digitalWrite(13, HIGH);
       BT.print("Received: ");
-      BT.println(a);
+      BT.println(a,HEX);
       BT.println("LED on");
     }
     else if (a=='2')
     {
       digitalWrite(13, LOW);
       BT.print("Received: ");
-      BT.println(a);
+      BT.println(a,HEX);
       BT.println("LED off");
     }
     else if (a=='?')
     {
       BT.println("Send '1' to turn LED on");
       BT.println("Send '2' to turn LED off");
+    }
+    else if (a == '\r' || a == '\n'){
+      BT.println("\r or \n");
+      return;
     }   
     else if (a != '1' || a != '2' || a != '?')
     {
