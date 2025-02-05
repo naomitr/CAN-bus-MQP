@@ -21,6 +21,7 @@ LiquidCrystal_I2C g_lcd(LCD_I2C_ADDRESS, LCD_COLUMNS, LCD_ROWS);
 bool g_canActive = false;
 long g_tofSensorId = 0x10;
 long g_tofSensorId2 = 0x20;
+long g_bleId1 = 0x30;
 
 void setup() {
   Serial.begin(9600);
@@ -95,7 +96,10 @@ void readCANBus() {
         //printPacket(pktId);
       }
     }
-  } else if (pktId != g_tofSensorId || pktId != g_tofSensorId2) {
+  }else if (pktId == g_bleId1){
+    Serial.println("hi!");
+  }
+  else if (pktId != g_tofSensorId || pktId != g_tofSensorId2) {
       Serial.println("Error: CAN packet ID is unknown");
       Serial.print("Unknown Packet ID: ");
       Serial.println(pktId);
@@ -162,4 +166,3 @@ void printByteInBinary(byte dataByte) {
     Serial.print(bitRead(dataByte, i));
   }
 }
-
