@@ -55,6 +55,8 @@ void sendDistanceOverCAN(uint16_t distance) {
     g_canActive = false;
   } else if (!CAN.endPacket()) {
     Serial.println("CAN end failed");
+    Serial.print("CAN dlc: ");
+    Serial.println(dlc);
     g_canActive = false;
   } else {
     Serial.println("CAN packet sent successfully");
