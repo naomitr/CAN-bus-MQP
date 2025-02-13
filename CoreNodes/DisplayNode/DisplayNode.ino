@@ -22,10 +22,12 @@ bool g_canActive = false;
 long g_tofSensorId = 0x10;
 long g_tofSensorId2 = 0x20;
 long g_bleId1 = 0x30;
+int g_outputPin;
 
 void setup() {
   Serial.begin(9600);
   while (!Serial);
+  pinMode(g_outputPin, OUTPUT);
 
   g_lcd.init();
   g_lcd.backlight();
@@ -37,6 +39,11 @@ void setup() {
 }
 
 void loop() {
+  // monitor state of D11 Pin
+  int outputOfD11 = digitalRead(g_outputPin);
+  Serial.print("D11 State: ");
+  Serial.println(outputOfD11);
+
   // Check if CAN bus has been activated
   if (!g_canActive) {    
     initCAN();
