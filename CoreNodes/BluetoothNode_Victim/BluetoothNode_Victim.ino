@@ -72,7 +72,7 @@ void sendBluetoothStatusOverCAN(uint8_t status) {
   } else if (!CAN.endPacket()) {
     Serial.println("CAN end failed");
     g_canActive = false;
-  } else {
+  } else { 
     Serial.println("CAN packet sent successfully");
     Serial.print("Bluetooth Status Sent: ");
     Serial.println(status);
