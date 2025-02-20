@@ -13,34 +13,27 @@
 const int RETRY_DELAY_MS = 2000;
 const int LOOP_DELAY_MS = 1000;
 const long CAN_SPEED = 500E3; // communication speed for the CAN bus, set to 500 kbps, which is a standard speed for many CAN networks.
-const int OUTPUT_PIN = 11;
 
 // Globals
 VL53L0X g_tofSensor;
 bool g_canActive    = false; // flag indicating whether the CAN bus is active and ready for communication.
 long g_canID        = 0x10; //  identifier for CAN packets sent from this device, ensuring that messages can be correctly routed and recognized in the network.
 
-
 void setup() {
   Serial.println("start of setup");
   Serial.begin(9600);
   Wire.begin();
 
-  pinMode(outputPin, OUTPUT);
-
   // Initialize CAN bus
+  Serial.println("pre initCAN");
   initCAN();
+  Serial.println("post initCAN");
 
   setupToF();
 }
 
 void loop() {
   uint16_t distance;
-
-  //Monitor state of D11 pin
-  int outputOfd11 = digitalRead(outputPin);
-  Serial.print("D11 State: ");
-  Serial.println(outputOfD11);
 
   // Init CAN if not already active
   if (!g_canActive) {
@@ -54,7 +47,7 @@ void loop() {
   
   // Check for timeout
   if (g_tofSensor.timeoutOccurred()) {
-    Serial.println("senor Timeout");
+    Serial.println("sensor Timeout");
     return; // Do not proceed with sending if there's a sensor timeout.
   }
    

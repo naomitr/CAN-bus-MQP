@@ -47,7 +47,7 @@ void loop() {
   
   // Check for timeout
   if (g_tofSensor.timeoutOccurred()) {
-    Serial.println("senor Timeout");
+    Serial.println("sensor Timeout");
     return; // Do not proceed with sending if there's a sensor timeout.
   }
    

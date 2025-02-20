@@ -38,6 +38,7 @@ void loop() {
   }
 
   if (g_input.length() > 0) {
+    Serial.println(g_input);
     processBluetoothInput(g_input);
     g_input = ""; // Clear the buffer after processing
   }
@@ -56,7 +57,12 @@ void initCAN() {
 }
 
 void sendBluetoothStatus() {
-  uint8_t btStatus = BT.available() ? 1 : 0; // 1 if device connected, 0 otherwise
+  uint8_t btStatus = BT.available();
+  if (btStatus == 1){
+    btStatus = 20;
+  } else{
+    btStatus = 10;
+   }// 1 if device connected, 0 otherwise
   sendBluetoothStatusOverCAN(btStatus);
 }
 
