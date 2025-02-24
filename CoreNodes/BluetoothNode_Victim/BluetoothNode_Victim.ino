@@ -34,7 +34,15 @@ void loop() {
 
   while (BT.available()) {
     char c = BT.read();
-    g_input += c; // Append character to the buffer
+    if (c == '\n' || c == '\r') {  //Process only when newline detected
+      g_input.trim();  //Remove extra spaces and newline characters
+      Serial.print("Processing Bluetooth Command: ");
+      Serial.println(g_input);  // Debug print
+      processBluetoothInput(g_input);
+      g_input = "";  //Clear buffer after processing
+    } else {
+      g_input += c;  //Append characters until newline
+    }
   }
 
   if (g_input.length() > 0) {
@@ -58,12 +66,16 @@ void initCAN() {
 
 void sendBluetoothStatus() {
   uint8_t btStatus = BT.available();
+  Serial.println("Sending BT status");
   if (btStatus == 1){
     btStatus = 20;
+    Serial.println("Bluetooth status is paired");
   } else{
     btStatus = 10;
+    Serial.println("Bluetooth status is unpaired");
    }// 1 if device connected, 0 otherwise
   sendBluetoothStatusOverCAN(btStatus);
+
 }
 
 void sendBluetoothStatusOverCAN(uint8_t status) {
@@ -86,22 +98,31 @@ void sendBluetoothStatusOverCAN(uint8_t status) {
 }
 
 void processBluetoothInput(String input) {
-  if (input == "LED_ON") {
-    digitalWrite(13, HIGH);
-    BT.print("Received: ");
-    BT.println(input);
-    BT.println("LED on");
-  } else if (input == "LED_OFF") {
-    digitalWrite(13, LOW);
-    BT.print("Received: ");
-    BT.println(input);
-    BT.println("LED off");
-  } else if (input == "HELP") {
-    BT.println("Send 'LED_ON' to turn LED on");
-    BT.println("Send 'LED_OFF' to turn LED off");
-  } else {
-    BT.print("Received: ");
-    BT.println(input);
-    BT.println("Unknown command");
-  }
+    input.trim();  // Remove whitespace
+    input.replace("\r", "");  // Remove Carriage Return
+    input.replace("\n", "");  // Remove Newline
+
+    Serial.print("Received RAW Input: ");
+    for (size_t i = 0; i < input.length(); i++) {
+        Serial.print("0x");
+        Serial.print(input[i], HEX);
+        Serial.print(" ");
+    }
+    Serial.println();  // Newline for readability
+    
+    if (input.indexOf("LED_ON") != -1) {  
+        digitalWrite(13, HIGH);
+        BT.println("LED ON");
+        Serial.println("LED turned ON!");
+    } else if (input.indexOf("LED_OFF") != -1) {  
+        digitalWrite(13, LOW);
+        BT.println("LED OFF");
+        Serial.println("LED turned OFF!");
+    } else if (input.indexOf("HELP") != -1) {  
+        BT.println("Commands: LED_ON, LED_OFF");
+    } else {  
+        BT.print("Unknown Command: ");
+        BT.println(input);
+    }
 }
+
