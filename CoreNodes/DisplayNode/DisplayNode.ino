@@ -136,6 +136,8 @@ void readCANBus() {
   Display distance value
 */
 void displayDistance(uint16_t distance, int pktId) {
+  g_lcd.clear(); //Clear the screen
+
   g_lcd.setCursor(0, 0);
   g_lcd.print("                "); // ✅ Fix: Avoid LCD flickering
   g_lcd.setCursor(0, 0);
