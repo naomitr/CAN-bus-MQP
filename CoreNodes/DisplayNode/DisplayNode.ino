@@ -156,6 +156,8 @@ void displayDistance(uint16_t distance, int pktId) {
   Display Bluetooth status based on received values
 */
 void displayBluetooth(uint16_t info, int pktId) {
+  g_lcd.clear(); //Clear the screen
+  
   g_lcd.setCursor(0, 0);
   
   if (info == 20) {
