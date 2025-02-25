@@ -65,17 +65,13 @@ void initCAN() {
 }
 
 void sendBluetoothStatus() {
-  uint8_t btStatus = BT.available();
-  Serial.println("Sending BT status");
-  if (btStatus == 1){
+  uint8_t btStatus = BT.available() ? 1 : 0; // 1 if device connected, 0 otherwise
+    if (btStatus == 1){
     btStatus = 20;
-    Serial.println("Bluetooth status is paired");
   } else{
     btStatus = 10;
-    Serial.println("Bluetooth status is unpaired");
    }// 1 if device connected, 0 otherwise
   sendBluetoothStatusOverCAN(btStatus);
-
 }
 
 void sendBluetoothStatusOverCAN(uint8_t status) {
