@@ -74,13 +74,16 @@ void initCAN() {
   Setup ToF sensor
 */
 void setupToF() {
+  Serial.println("in setup ToF");
   g_tofSensor.setTimeout(1000);
 
+  Serial.println("before the while loop");
   while (!g_tofSensor.init()) {
       Serial.println("Failed to detect and initialize sensor!");
       delay(RETRY_DELAY_MS);
   }
   
+  Serial.println("about to start tof continuous");
   g_tofSensor.startContinuous();
 }
 

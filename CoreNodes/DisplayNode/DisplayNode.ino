@@ -78,7 +78,7 @@ void readCANBus() {
   int pktSize;
   int pktId;
 
-  // ✅ Ensure packet is available before reading packet ID
+  // Ensure packet is available before reading packet ID
   pktSize = CAN.parsePacket();
   if (pktSize) {  
     pktId = CAN.packetId();
@@ -108,7 +108,7 @@ void readCANBus() {
         Serial.println(receivedByte, HEX);
 
         if (pktSize == 1) { 
-          info = receivedByte;  // ✅ Handle single-byte packets correctly
+          info = receivedByte;  //  Handle single-byte packets correctly
         } else if (byteIndex % 2 == 1) { 
           info = (bytearray[1] << 8) | bytearray[0];  // Combine two bytes
         }
