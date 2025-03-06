@@ -1,3 +1,22 @@
+/*****************************************
+  Authors: Naomi Treto, Sarah Meany, Srivatstan Munkuntraj, Haowen Xu
+  Date: 3/3/2025
+  Description:
+  This program acts as a sending node on a CAN bus, transmitting a predefined 
+  exploit distance value over the bus at regular intervals. The program ensures 
+  that the CAN interface remains active and sends malicious data using a set 
+  CAN packet ID.
+
+  Features:
+  - Periodic CAN message transmission with predefined exploit distance.
+  - Automatic CAN initialization and reinitialization if failure occurs.
+  - Hexadecimal data formatting for packet visualization in serial output.
+  - Error handling for CAN transmission failures.
+
+  License:
+  This program is licensed under the GNU General Public License v3.0.
+
+*****************************************/
 #include <CAN.h>
 
 // Constants

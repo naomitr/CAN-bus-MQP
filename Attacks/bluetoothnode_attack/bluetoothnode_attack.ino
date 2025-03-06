@@ -1,3 +1,24 @@
+/*****************************************
+  Authors: Naomi Treto, Sarah Meaney
+  Date: 3/3/2025
+
+  Description:
+  This program acts as a Bluetooth-controlled sending node on a CAN bus. It listens
+  for specific Bluetooth commands and transmits a predefined exploit distance value 
+  over the CAN bus upon receiving the appropriate command.
+
+  Features:
+  - Bluetooth communication for remote command-based CAN message injection.
+  - Periodic CAN message transmission with a predefined exploit distance.
+  - Automatic CAN initialization and reinitialization if failure occurs.
+  - Hexadecimal data formatting for packet visualization in serial output.
+  - Error handling for CAN transmission failures.
+  - LED indicator for successful CAN message injection.
+
+  License:
+  This program is licensed under the GNU General Public License v3.0.
+
+*****************************************/
 #include <SoftwareSerial.h>  // Bluetooth Serial
 #include <CAN.h>             // Native CAN library for built-in CAN controllers
 

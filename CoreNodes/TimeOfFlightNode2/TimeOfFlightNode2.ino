@@ -1,8 +1,23 @@
 /*****************************************
-  Author: Olivier C
+  Original Author: Olivier C
+  Modified by: Naomi Treto & Sarah Meaney
+  Date: 3/3/2025
 
-  Act as a sending node on a CAN bus. Get measurement from ToF sensor and send value over CAN bus
-  with specific packet ID.
+  Description:
+  This program is based on an original CAN bus sender by Olivier C but has been 
+  modified to improve debugging and enhance robustness. It retrieves distance 
+  measurements from a ToF sensor and sends the data over the CAN bus.
+
+  Major Modifications:
+  - Added extensive debugging messages to track program execution and identify potential issues.
+  - Improved sensor initialization with additional debug prints for better visibility of failures.
+  - Refactored setup process to provide clearer feedback on the initialization sequence.
+  - Enhanced CAN transmission error handling by providing detailed failure messages.
+  - Fixed minor typos in Serial output for better readability.
+
+  License:
+  This program is licensed under the GNU General Public License v3.0.
+
 *****************************************/
 
 #include <Wire.h>

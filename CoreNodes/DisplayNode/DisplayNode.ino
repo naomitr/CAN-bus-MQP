@@ -1,9 +1,28 @@
 /*****************************************
-  Author: Olivier C
+  Original Author: Olivier C
+  Modified by: Naomi Treto, Sarah Meaney
+  Date: 3/3/2025
 
-  Act as a receiving node on a CAN bus. Display the content of the CAN packet if the packet ID matches
-  the expected ID.
+  Description:
+  This program is based on an original CAN bus receiver by Olivier C but has 
+  been significantly expanded to support multiple sensor IDs, integrate 
+  Bluetooth packet handling, and improve error handling. It listens for CAN 
+  messages, processes sensor and Bluetooth data, and displays information on 
+  an LCD screen.
+
+  Major Modifications:
+  - Added support for multiple CAN IDs (two ToF sensor IDs and one Bluetooth ID).
+  - Implemented Bluetooth packet handling and display logic.
+  - Improved error handling for unknown packet IDs.
+  - Added an output pin (D11) for interaction with external components.
+  - Refactored the LCD display logic to reduce flickering and improve readability.
+  - Enhanced CAN reinitialization logic for increased robustness.
+
+  License:
+  This program is licensed under the GNU General Public License v3.0.
+
 *****************************************/
+
 #include <CAN.h>
 #include <LiquidCrystal_I2C.h>
 
